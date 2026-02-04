@@ -1,17 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Rango</title>
-</head>
-<body>
-    <h1>Rango says here is the about page.</h1>
+{% extends 'rango/base.html' %}
 
-    <p>This tutorial has been put together by </p>
+{% block title_block %}
+About Rango
+{% endblock %}
 
-    <img src="/static/images/rango.jpg" alt="Picture of Rango" />
-    <img src="/media/cat.jpg" alt="Picture of a Cat" />
+{% block body_block %}
+<h1>About Rango</h1>
 
-    <br />
-    <a href="/rango/">Index</a>
-</body>
-</html>
+<p>This tutorial has been put together by Tango with Django.</p>
+
+<img src="/static/images/rango.jpg" alt="Picture of Rango" />
+<img src="/media/cat.jpg" alt="Picture of a Cat" />
+{% endblock %}

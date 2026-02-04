@@ -1,15 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Rango</title>
-</head>
-<body>
-    <h1>Add a Page</h1>
+{% extends 'rango/base.html' %}
 
-    <form id="page_form" method="post" action="/rango/category/{{ category.slug }}/add_page/">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" name="submit" value="Create Page" />
-    </form>
-</body>
-</html>
+{% block title_block %}
+Add a Page
+{% endblock %}
+
+{% block body_block %}
+<h1>Add a Page</h1>
+
+<form method="post" action="{% url 'rango:add_page' category.slug %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" name="submit" value="Create Page" />
+</form>
+{% endblock %}
