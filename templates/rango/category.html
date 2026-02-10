@@ -12,7 +12,10 @@ Unknown Category
 {% if category %}
 <h1>{{ category.name }}</h1>
 
+{% if user.is_authenticated %}
 <a href="{% url 'rango:add_page' category.slug %}">Add Page</a>
+{% endif %}
+
 {% if pages %}
 <ul>
     {% for page in pages %}
