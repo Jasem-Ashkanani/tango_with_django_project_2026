@@ -2,9 +2,25 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
 
 from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
 from rango.models import Category, Page
+
+
+def visitor_cookie_handler(request):
+    visits = request.session.get('visits', 1)
+    last_visit = request.session.get('last_visit', str(datetime.now()))
+
+    last_visit_time = datetime.strptime(last_visit[:-7], '%Y-%m-%d %H:%M:%S')
+
+    if (datetime.now() - last_visit_time).days > 0:
+        visits = visits + 1
+        request.session['last_visit'] = str(datetime.now())
+    else:
+        request.session['last_visit'] = last_visit
+
+    request.session['visits'] = visits
 
 
 def index(request):
@@ -15,6 +31,7 @@ def index(request):
     context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
     context_dict['categories'] = category_list
     context_dict['pages'] = page_list
+    visitor_cookie_handler(request)
 
     return render(request, 'rango/index.html', context=context_dict)
 
