@@ -93,7 +93,9 @@ def add_page(request, category_name_slug):
 
 
 def about(request):
-    return render(request, 'rango/about.html')
+    visitor_cookie_handler(request)
+    context_dict = {'visits': request.session['visits']}
+    return render(request, 'rango/about.html', context=context_dict)
 
 
 def register(request):
